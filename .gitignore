@@ -1,7 +1,9 @@
+# Ignore UE4 Starter Content & free Marketplace assets
 Content/InfinityBladeGrassLands/*
-Content/FirstPersonCPP/*
-Content/FirstPerson/*
+Content/FirstPerson*/*
+Content/ThirdPerson*/*
 Content/Geometry/*
+Content/Mannequin/*
 
 # Visual Studio 2015 user specific files
 .vs/
