@@ -4,6 +4,7 @@ Content/FirstPerson*/*
 Content/ThirdPerson*/*
 Content/Geometry/*
 Content/Mannequin/*
+Content/AnimStarterPack/*
 
 # Visual Studio 2015 user specific files
 .vs/
