@@ -1,8 +1,8 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
 #include "ShooterGameMode.h"
-#include "ShooterHUD.h"
-#include "ShooterCharacter.h"
+#include "../UI/ShooterHUD.h"
+#include "../Actors/ShooterCharacter.h"
 #include "UObject/ConstructorHelpers.h"
 
 AShooterGameMode::AShooterGameMode(): Super() {
