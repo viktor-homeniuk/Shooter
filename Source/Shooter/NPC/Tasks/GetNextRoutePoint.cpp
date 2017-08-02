@@ -2,7 +2,7 @@
 
 #include "GetNextRoutePoint.h"
 #include "AIController.h"
-#include "GuardBehaviorComponent.h"
+#include "../GuardBehaviorComponent.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
 
