@@ -10,13 +10,16 @@ EBTNodeResult::Type UGetNextRoutePoint::ExecuteTask(UBehaviorTreeComponent& Owne
 	// Get patrol Guard Component
 	APawn* Guard = OwnerComp.GetAIOwner()->GetPawn();
 	UGuardBehaviorComponent* GuardComponent = Guard->FindComponentByClass<UGuardBehaviorComponent>();
-	if (!ensure(GuardComponent)) { return EBTNodeResult::Failed; }
+	if (!ensure(GuardComponent)) { 
+		UE_LOG(LogTemp, Warning, TEXT("%s misses GuardBehaviorComponent"), *Guard->GetName());
+		return EBTNodeResult::Failed;
+	}
 
 	// Get Patrol Points
 	TArray<AActor*> PatrolPoints = GuardComponent->GetPatrolPoints();
 	if (PatrolPoints.Num() == 0) {
 		UE_LOG(LogTemp, Warning, TEXT("%s misses points to patrol"), *Guard->GetName());
-		return EBTNodeResult::Failed;
+		return EBTNodeResult::Aborted;
 	}
 
 	// Get Blackboard Data
