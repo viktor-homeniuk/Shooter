@@ -24,5 +24,19 @@ protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 
+protected:
+
+	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
+	bool bIsAiming = false;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
+	bool bIsCrouching = false;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
+	bool bIsJumping = false;
+
+	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
+	bool bIsShooting = false;
+
 };
 
