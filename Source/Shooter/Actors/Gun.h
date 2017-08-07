@@ -19,13 +19,10 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Action")
 	void Fire();
 
-	FORCEINLINE void SetAnimationInstance(UAnimInstance* Instance) { AnimInstance = Instance; }
 private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	class USceneComponent* Muzzle;
-
-	UAnimInstance* AnimInstance;
 
 protected:
 
@@ -37,8 +34,5 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup")
 	class USoundBase* FireSound;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup", DisplayName = "Fire Animation")
-	class UAnimMontage* AnimMontage;
 
 };

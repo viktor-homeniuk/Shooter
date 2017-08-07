@@ -14,7 +14,6 @@ AGun::AGun() {
 	// Create a Gun mesh
 	GunMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("GunMesh"));
 	SetRootComponent(GunMesh);
-	//GunMesh->AttachToComponent(RootComponent, FAttachmentTransformRules::KeepRelativeTransform);
 
 	// Create a Muzzle object
 	Muzzle = CreateDefaultSubobject<USceneComponent>(TEXT("Muzzle"));
@@ -33,10 +32,5 @@ void AGun::Fire() {
 	// Play sound
 	if (FireSound != nullptr) {
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
-	}
-
-	// Play Animation
-	if (AnimInstance != nullptr && AnimMontage != nullptr) {
-		AnimInstance->Montage_Play(AnimMontage, 1.0f);
 	}
 }
