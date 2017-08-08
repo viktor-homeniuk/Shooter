@@ -25,6 +25,7 @@ void AShooterCharacter::BeginPlay() {
 	Gun = GetWorld()->SpawnActor<AGun>(GunType);
 	Gun->AttachToComponent(GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, GunSocket);
 	Gun->SetAnimationInstance(GetMesh()->GetAnimInstance());
+	Gun->SetOwner(this);
 	if (InputComponent) {
 		InputComponent->BindAction("Fire", IE_Pressed, this, &AShooterCharacter::Fire);
 	}
@@ -34,7 +35,6 @@ void AShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 {
 	// Set up Gameplay key bindings
 	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AShooterCharacter::Fire);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AShooterCharacter::Jump);
 	PlayerInputComponent->BindAxis("MoveForward", this, &AShooterCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AShooterCharacter::MoveRight);

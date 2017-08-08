@@ -29,7 +29,7 @@ void AGun::Fire() {
 		GetWorld()->SpawnActor<AShooterProjectile>(Projectile, Location, Rotation);
 	}
 	// Report noise event by Gun owner
-	MakeNoise(1.0f, Cast<APawn>(GetParentActor()));
+	MakeNoise(1.0f, Cast<APawn>(GetOwner()));
 
 	// Play sound
 	if (FireSound != nullptr) {

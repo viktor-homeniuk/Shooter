@@ -15,10 +15,7 @@ class SHOOTER_API AGun : public AActor
 	
 public:	
 	AGun();
-
-	UFUNCTION(BlueprintCallable, Category = "Action")
 	void Fire();
-
 	FORCEINLINE void SetAnimationInstance(UAnimInstance* Instance) { AnimInstance = Instance; }
 
 protected:
