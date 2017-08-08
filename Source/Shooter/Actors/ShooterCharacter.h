@@ -36,8 +36,5 @@ protected:
 	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
 	bool bIsJumping = false;
 
-	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
-	bool bIsShooting = false;
-
 };
 

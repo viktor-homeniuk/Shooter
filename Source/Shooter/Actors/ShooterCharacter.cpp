@@ -45,5 +45,4 @@ void AShooterCharacter::MoveRight(float Value) {
 
 void AShooterCharacter::ToggleAlarm(bool State) {
 	bIsAiming = State;
-	bIsShooting = State;
 }
