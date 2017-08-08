@@ -42,3 +42,8 @@ void AShooterCharacter::MoveRight(float Value) {
 		AddMovementInput(GetActorRightVector(), Value);
 	}
 }
+
+void AShooterCharacter::ToggleAlarm(bool State) {
+	bIsAiming = State;
+	bIsShooting = State;
+}

@@ -16,6 +16,7 @@ class AShooterCharacter : public ACharacter
 
 public:
 	AShooterCharacter();
+	void ToggleAlarm(bool State = false);
 
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
