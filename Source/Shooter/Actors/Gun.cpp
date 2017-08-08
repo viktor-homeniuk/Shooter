@@ -35,4 +35,9 @@ void AGun::Fire() {
 	if (FireSound != nullptr) {
 		UGameplayStatics::PlaySoundAtLocation(this, FireSound, GetActorLocation());
 	}
+
+	// Play Animation
+	if (AnimInstance && AnimMontage) {
+		AnimInstance->Montage_Play(AnimMontage);
+	}
 }
