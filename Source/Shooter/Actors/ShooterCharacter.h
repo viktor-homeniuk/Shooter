@@ -17,11 +17,10 @@ class AShooterCharacter : public ACharacter
 public:
 	AShooterCharacter();
 	void ToggleAlarm(bool State = false);
-
-	UFUNCTION(BlueprintImplementableEvent, Category = "Action")
-	void Fire();  // TODO: BlueprintNativeEvents?
+	void Fire();
 
 protected:
+	virtual void BeginPlay();
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	virtual void Jump() override;
 	void MoveForward(float Value);
@@ -37,6 +36,16 @@ protected:
 
 	UPROPERTY(BlueprintReadWrite, Category = "Animation Flow")
 	bool bIsJumping = false;
+
+private:
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	TSubclassOf<AGun> GunType;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Weapon")
+	FName GunSocket;
+
+	UPROPERTY()
+	AGun* Gun;
 
 };
 
