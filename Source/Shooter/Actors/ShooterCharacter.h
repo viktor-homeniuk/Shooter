@@ -18,10 +18,12 @@ public:
 	AShooterCharacter();
 	void ToggleAlarm(bool State = false);
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Action")
+	void Fire();  // TODO: BlueprintNativeEvents?
+
 protected:
 	virtual void SetupPlayerInputComponent(UInputComponent* InputComponent) override;
 	virtual void Jump() override;
-
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 

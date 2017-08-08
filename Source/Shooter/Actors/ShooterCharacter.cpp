@@ -18,6 +18,7 @@ void AShooterCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 {
 	// Set up Gameplay key bindings
 	check(PlayerInputComponent);
+	PlayerInputComponent->BindAction("Fire", IE_Pressed, this, &AShooterCharacter::Fire);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &AShooterCharacter::Jump);
 	PlayerInputComponent->BindAxis("MoveForward", this, &AShooterCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &AShooterCharacter::MoveRight);
