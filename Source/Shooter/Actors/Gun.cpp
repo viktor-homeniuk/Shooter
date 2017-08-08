@@ -28,6 +28,8 @@ void AGun::Fire() {
 		const FVector Location = Muzzle->GetComponentLocation();
 		GetWorld()->SpawnActor<AShooterProjectile>(Projectile, Location, Rotation);
 	}
+	// Report noise event by Gun owner
+	MakeNoise(1.0f, Cast<APawn>(GetParentActor()));
 
 	// Play sound
 	if (FireSound != nullptr) {
