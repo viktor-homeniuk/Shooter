@@ -8,15 +8,8 @@
 EBTNodeResult::Type UShoot::ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
 	UObject* Target = OwnerComp.GetBlackboardComponent()->GetValueAsObject(TargetKey.SelectedKeyName);
 	OwnerComp.GetAIOwner()->SetFocus(Cast<AActor>(Target), EAIFocusPriority::Gameplay);
-	Cast<AShooterCharacter>(OwnerComp.GetAIOwner()->GetPawn())->ToggleAlarm(true);
+	AShooterCharacter* Character = Cast<AShooterCharacter>(OwnerComp.GetAIOwner()->GetPawn());
+	Character->ToggleAlarm(true);
+	Character->Fire();
 	return EBTNodeResult::Succeeded;
 }
-
-//EBTNodeResult::Type UShoot::AbortTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory) {
-//	UE_LOG(LogTemp, Warning, TEXT("Abort"));
-//
-//	OwnerComp.GetAIOwner()->ClearFocus(EAIFocusPriority::Gameplay);
-//	OwnerComp.GetBlackboardComponent()->ClearValue(TargetKey.SelectedKeyName);
-//	Cast<AShooterCharacter>(OwnerComp.GetAIOwner()->GetPawn())->ToggleAlarm(false);
-//	return EBTNodeResult::Aborted;
-//}
