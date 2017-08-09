@@ -1,7 +1,6 @@
 // Viktor Gomeniuk : https://github.com/vgomeniuk
 
 #include "Tile.h"
-#include "DrawDebugHelpers.h"
 
 ATile::ATile() {
 	PrimaryActorTick.bCanEverTick = false;
@@ -38,7 +37,6 @@ bool ATile::CanSpawnAtLocation(FVector Location, float Radius) {
 		ECollisionChannel::ECC_GameTraceChannel2,
 		FCollisionShape::MakeSphere(Radius)
 	);
-	DrawDebugCapsule(GetWorld(), GlobalLocation, 0, Radius, FQuat::Identity, (bHasHit ? FColor::Red : FColor::Green), true);
 	return !bHasHit;
 }
 
