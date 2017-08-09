@@ -73,18 +73,21 @@ bool ATile::FindEmptyLocation(FVector& Location, float Radius) {
 }
 
 void ATile::PlaceActor(TSubclassOf<AActor> Actor, const FSpawnTransform& Transform) {
-	AActor* Spawned = GetWorld()->SpawnActor<AActor>(Actor);
-	Spawned->SetActorRelativeLocation(Transform.Location);
-	Spawned->SetActorRotation(Transform.Rotation);
+	AActor* Spawned = GetWorld()->SpawnActor<AActor>(Actor, Transform.Location, Transform.Rotation);
+	if (Spawned == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("[ATile::PlaceActor<AActor>]Failed to spawn new Actor at position: %s"), *Transform.Location.ToString());
+		return;
+	}
 	Spawned->SetActorScale3D(Transform.Scale);
 	Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
 void ATile::PlaceActor(TSubclassOf<APawn> Pawn, const FSpawnTransform& Transform) {
-	APawn* Spawned = GetWorld()->SpawnActor<APawn>(Pawn);
-	Spawned->SetActorRelativeLocation(Transform.Location);
-	Spawned->SetActorRotation(Transform.Rotation);
-	Spawned->SetActorScale3D(Transform.Scale);
+	APawn* Spawned = GetWorld()->SpawnActor<APawn>(Pawn, Transform.Location, Transform.Rotation);
+	if (Spawned == nullptr) {
+		UE_LOG(LogTemp, Error, TEXT("[ATile::PlaceActor<AActor>]Failed to spawn new Pawn at position: %s"), *Transform.Location.ToString());
+		return;
+	}
 	Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 	Spawned->SpawnDefaultController();
 }
