@@ -8,7 +8,7 @@ ATile::ATile() {
 	GroundMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Ground"));
 }
 
-void ATile::PlaceActors(TSubclassOf<AActor> Actor, int32 MinNumberOfProps, int32 MaxNumberOfProps, float Radius) {
+void ATile::PlaceActors(TSubclassOf<AActor> Actor, int32 MinNumberOfProps, int32 MaxNumberOfProps, float Radius, float MinScale, float MaxScale) {
 	if (!Actor) {
 		UE_LOG(LogTemp, Error, TEXT("[ATile::PlaceActors]: Actor not specified"));
 		return;
@@ -19,8 +19,10 @@ void ATile::PlaceActors(TSubclassOf<AActor> Actor, int32 MinNumberOfProps, int32
 
 	// Spawn Actors at random points within box
 	for (int32 i = 0; i < NumberOfProps; ++i) {
-		if (FindEmptyLocation(SpawnPoint, Radius)) {
-			PlaceActor(Actor, SpawnPoint);
+		float RandomScale = FMath::RandRange(MinScale, MaxScale);
+		FRotator RandomRotation = FRotator(0, FMath::RandRange(-180.0f, 180.0f), 0);
+		if (FindEmptyLocation(SpawnPoint, Radius * RandomScale)) {
+			PlaceActor(Actor, SpawnPoint, RandomRotation, RandomScale);
 		}
 	}
 }
@@ -57,10 +59,11 @@ bool ATile::FindEmptyLocation(FVector& Location, float Radius) {
 	return false;
 }
 
-void ATile::PlaceActor(TSubclassOf<AActor> Actor, FVector Location) {
+void ATile::PlaceActor(TSubclassOf<AActor> Actor, FVector Location, FRotator Rotation, float Scale) {
 	AActor* Spawned = GetWorld()->SpawnActor<AActor>(Actor);
 	Spawned->SetActorRelativeLocation(Location);
-	Spawned->SetActorRotation(FRotator(0, FMath::RandRange(-180.0f, 180.0f), 0));
+	Spawned->SetActorRotation(Rotation);
+	Spawned->SetActorScale3D(FVector(Scale));
 	Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
