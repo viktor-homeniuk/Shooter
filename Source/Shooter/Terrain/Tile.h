@@ -16,18 +16,18 @@ public:
 	ATile();
 
 	UFUNCTION(BlueprintCallable, Category = "Setup")
-	void PlaceActors(TSubclassOf<AActor> Prop, int32 MinNumberOfProps, int32 MaxNumberOfProps);
+	void PlaceActors(TSubclassOf<AActor> Actor, int32 MinNumberOfProps=1, int32 MaxNumberOfProps=1, float Radius=500.0f);
 
-protected:
-	// Called when the game starts or when spawned
+private:
 	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	bool CanSpawnAtLocation(FVector Location, float Radius);
+	bool FindEmptyLocation(FVector& Location, float Radius);
+	void PlaceActor(TSubclassOf<AActor> Actor, FVector Location);
+
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Setup")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	class UStaticMeshComponent* GroundMesh;
 
 };
