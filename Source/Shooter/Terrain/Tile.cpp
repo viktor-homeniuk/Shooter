@@ -7,21 +7,37 @@ ATile::ATile() {
 	GroundMesh = CreateDefaultSubobject<UStaticMeshComponent>(FName("Ground"));
 }
 
-void ATile::PlaceActors(TSubclassOf<AActor> Actor, int32 MinNumberOfProps, int32 MaxNumberOfProps, float Radius, float MinScale, float MaxScale) {
+void ATile::RandomlyPlaceStaticActors(TSubclassOf<AActor> Actor, int32 MinNumberOfProps, int32 MaxNumberOfProps, float Radius, float MinScale, float MaxScale) {
 	if (!Actor) {
 		UE_LOG(LogTemp, Error, TEXT("[ATile::PlaceActors]: Actor not specified"));
 		return;
-	}
 
-	FVector SpawnPoint;
-	int32 NumberOfProps = FMath::RandRange(MinNumberOfProps, MaxNumberOfProps);
+	}
+	Place(Actor, MinNumberOfProps, MaxNumberOfProps, Radius, MinScale, MaxScale);
+}
+
+void ATile::RandomlyPlaceAIPawns(TSubclassOf<APawn> Pawn, int32 MinNumberOfPawns, int32 MaxNumberOfPawns, float Radius) {
+	if (!Pawn) {
+		UE_LOG(LogTemp, Error, TEXT("[ATile::PlaceAIPawns]: Pawn not specified"));
+		return;
+	}
+	Place(Pawn, MinNumberOfPawns, MaxNumberOfPawns, Radius, 1.0f, 1.0f);
+}
+
+template<typename T>
+void ATile::Place(T Actor, int32 MinNumberOfActors, int32 MaxNumberOfActors, float Radius, float MinScale, float MaxScale) {
+	int32 NumberOfProps = FMath::RandRange(MinNumberOfActors, MaxNumberOfActors);
 
 	// Spawn Actors at random points within box
 	for (int32 i = 0; i < NumberOfProps; ++i) {
 		float RandomScale = FMath::RandRange(MinScale, MaxScale);
-		FRotator RandomRotation = FRotator(0, FMath::RandRange(-180.0f, 180.0f), 0);
-		if (FindEmptyLocation(SpawnPoint, Radius * RandomScale)) {
-			PlaceActor(Actor, SpawnPoint, RandomRotation, RandomScale);
+		FSpawnTransform Transform = {
+			FVector(0),
+			FRotator(0, FMath::RandRange(-180.0f, 180.0f), 0),
+			FVector(RandomScale)
+		};
+		if (FindEmptyLocation(Transform.Location, Radius * RandomScale)) {
+			PlaceActor(Actor, Transform);
 		}
 	}
 }
@@ -41,8 +57,7 @@ bool ATile::CanSpawnAtLocation(FVector Location, float Radius) {
 }
 
 bool ATile::FindEmptyLocation(FVector& Location, float Radius) {
-	static FVector Max(4000, 4000, 0);
-	static FBox Bounds(FVector(), Max);
+	static FBox Bounds(FVector(0), FVector(4000.0f, 4000.0f, 0.0f));
 	static int32 MaxAttempts = 100;
 
 	// Try to find empty location to spawn actor
@@ -57,20 +72,20 @@ bool ATile::FindEmptyLocation(FVector& Location, float Radius) {
 	return false;
 }
 
-void ATile::PlaceActor(TSubclassOf<AActor> Actor, FVector Location, FRotator Rotation, float Scale) {
+void ATile::PlaceActor(TSubclassOf<AActor> Actor, const FSpawnTransform& Transform) {
 	AActor* Spawned = GetWorld()->SpawnActor<AActor>(Actor);
-	Spawned->SetActorRelativeLocation(Location);
-	Spawned->SetActorRotation(Rotation);
-	Spawned->SetActorScale3D(FVector(Scale));
+	Spawned->SetActorRelativeLocation(Transform.Location);
+	Spawned->SetActorRotation(Transform.Rotation);
+	Spawned->SetActorScale3D(Transform.Scale);
 	Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
 }
 
-
-void ATile::BeginPlay() {
-	Super::BeginPlay();
-}
-
-void ATile::Tick(float DeltaTime) {
-	Super::Tick(DeltaTime);
+void ATile::PlaceActor(TSubclassOf<APawn> Pawn, const FSpawnTransform& Transform) {
+	APawn* Spawned = GetWorld()->SpawnActor<APawn>(Pawn);
+	Spawned->SetActorRelativeLocation(Transform.Location);
+	Spawned->SetActorRotation(Transform.Rotation);
+	Spawned->SetActorScale3D(Transform.Scale);
+	Spawned->AttachToActor(this, FAttachmentTransformRules::KeepRelativeTransform);
+	Spawned->SpawnDefaultController();
 }
 
