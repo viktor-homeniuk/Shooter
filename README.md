@@ -15,6 +15,16 @@ Generator also checks intersection of the spawned object to avoid visible Mesh c
 ![Gameplay_RandomArena](https://github.com/vgomeniuk-games/Shooter/blob/master/Gameplay_RandomArena.gif)
 ![Gameplay_InfinityBlade](https://github.com/vgomeniuk-games/Shooter/blob/master/Gameplay_InfinityBlade.gif)
 
+## Features to add/improve:
+- Change NPC color on Alert (or other indicator of changing states);
+- Use Perception Affiliation instead of checking enemies by Tags \ Controller;
+- Add gun reloading (animations, gameplay functional etc.);
+- Add new types of guns (rocket launchers, pistols, shotguns etc.);
+- Add Tunnel Vision while aiming;
+- Hearing vs. Seeing Perception: re-implement logic to properly handle situations when enemy detected by one sence but lost by other;
+- Add noise when walking;
+
+
 <b>Copyright information:</b>
 
 All resources (sounds, music, font, spritesheets etc.) used in game were found online and are free for non-commercial use.
