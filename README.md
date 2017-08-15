@@ -1,5 +1,7 @@
 # Shooter
-Third Person Shooter game developed using Unreal Engine 4.
+Third Person Shooter game developed using Unreal Engine 4. Although Project was created using FPS template, almost everything was removed later. Character was rebuild based on UE4 Free Animation Starter Pack (Skeleton and animations).
+For demonstration purpose default level from Infinity Blade was used (UE4 free InfinityBlade Assets package).
+Game was developed using some free assets found on the web too.
 
 ## Few key project's features:
 
@@ -12,8 +14,6 @@ Generator also checks intersection of the spawned object to avoid visible Mesh c
 - NPC can be used both on maps randomly generated as well as manually designed. The only requirement is properly placed NaviMeshVolume.
 ![Gameplay_RandomArena](https://github.com/vgomeniuk-games/Shooter/blob/master/Gameplay_RandomArena.gif)
 ![Gameplay_InfinityBlade](https://github.com/vgomeniuk-games/Shooter/blob/master/Gameplay_InfinityBlade.gif)
-
-Game was developed using free UE Marketplace assets and assets found on the web.
 
 <b>Copyright information:</b>
 
